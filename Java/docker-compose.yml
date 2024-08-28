@@ -1,0 +1,11 @@
+version:  '3'
+services:
+  message_producer:
+    build: producer
+
+  message_consumer:
+    build: consumer
+    ports:
+      - "8080:8080"
+    links:
+      - message_producer:producer

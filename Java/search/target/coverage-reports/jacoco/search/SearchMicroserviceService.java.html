@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchMicroserviceService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project-solution-search</a> &gt; <a href="index.source.html" class="el_package">search</a> &gt; <span class="el_source">SearchMicroserviceService.java</span></div><h1>SearchMicroserviceService.java</h1><pre class="source lang-java linenums">package search;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Service
+<span class="fc" id="L10">public class SearchMicroserviceService {</span>
+    @Autowired
+    private MicroserviceRepository microserviceRepository;
+
+    public List getMicroservices() {
+
+<span class="fc" id="L16">        return microserviceRepository.findAll();</span>
+    }
+
+    public List getMicroservicesByNameOrCategory(String nameOrCategory) {
+        //May look strange, but this seems to be the cleanest way to return a distinct list that searches for both names and categories
+<span class="fc" id="L21">        return microserviceRepository.findDistinctByCategoryOrName(nameOrCategory, nameOrCategory);</span>
+    }
+    public List getMicroservicesByName(String name) {
+<span class="fc" id="L24">        return microserviceRepository.findDistinctByName(name);</span>
+    }
+    public List getMicroservicesByCategory(String category) {
+<span class="fc" id="L27">        return microserviceRepository.findDistinctByCategory(category);</span>
+    }
+    public List getMicroservicesWithoutDependencies() {
+<span class="nc" id="L30">        return microserviceRepository.findAll().stream().filter(microservice -&gt; microservice.getDependencies().isEmpty()).collect(Collectors.toList());</span>
+    }
+
+    public List&lt;List&gt; getMicroservicePage(String serviceName, Integer version) {
+        List&lt;Microservice&gt; matchingServices;
+<span class="nc" id="L35">        List&lt;Microservice&gt; allServices = microserviceRepository.findDistinctByName(serviceName);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (version==null){</span>
+<span class="nc" id="L37">            matchingServices = microserviceRepository.findDistinctByName(serviceName);</span>
+        }else {
+<span class="nc" id="L39">            matchingServices = microserviceRepository.findDistinctByNameAndVersion(serviceName,version);</span>
+        }
+<span class="nc" id="L41">        List&lt;Integer&gt; allVersions = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        for (Microservice service : allServices) {</span>
+<span class="nc" id="L43">            Integer tempVersion = service.getVersion();</span>
+<span class="nc" id="L44">            allVersions.add(tempVersion);</span>
+<span class="nc" id="L45">        }</span>
+
+<span class="nc" id="L47">        List&lt;Microservice&gt; dependencies = grabDependencies(matchingServices.get(0));</span>
+
+<span class="nc" id="L49">        List&lt;List&gt; results = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L50">        results.add(matchingServices);</span>
+<span class="nc" id="L51">        results.add(dependencies);</span>
+<span class="nc" id="L52">        results.add(allVersions);</span>
+<span class="nc" id="L53">        return results;</span>
+    }
+
+    private List&lt;Microservice&gt; grabDependencies(Microservice resultMicroservice) {
+<span class="nc" id="L57">        List&lt;String&gt; dependencies = resultMicroservice.getDependencies();</span>
+<span class="nc" id="L58">        List&lt;Microservice&gt; dependencyInfoList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        for (String d : dependencies) {</span>
+<span class="nc" id="L61">            Optional&lt;Microservice&gt; latestVersionDependency = microserviceRepository.findDistinctByName(d).stream().max(Comparator.comparing(Microservice::getVersion));</span>
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            if (latestVersionDependency.isPresent()) {</span>
+<span class="nc" id="L64">                Microservice latestVersionMicroservice = latestVersionDependency.get();</span>
+<span class="nc" id="L65">                dependencyInfoList.add(latestVersionMicroservice);</span>
+            }
+<span class="nc" id="L67">        }</span>
+        //adding all dependencies to the list.
+<span class="nc" id="L69">        return dependencyInfoList;</span>
+    }
+
+    public List&lt;Microservice&gt; getMicroservicesByNameAndCategory(String name, String category) {
+<span class="fc" id="L73">        return microserviceRepository.findDistinctByNameAndCategory(name,category);</span>
+    }
+
+    public String getSpecification(String name) {
+<span class="fc" id="L77">        return microserviceRepository.findDistinctByName(name).get(0).getSpecification();</span>
+    }
+    public String getSpecification(String name,Integer version) {
+<span class="fc" id="L80">        return microserviceRepository.findDistinctByNameAndVersion(name,version).get(0).getSpecification();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

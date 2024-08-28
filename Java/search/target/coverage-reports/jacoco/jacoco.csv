@@ -1,0 +1,5 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+project-solution-search,search,SearchMicroserviceService,121,48,8,0,25,8,8,8,4,8
+project-solution-search,search,Microservice,40,35,0,0,16,15,11,10,11,10
+project-solution-search,search,SearchMicroserviceController,8,173,8,18,0,33,7,14,0,8
+project-solution-search,search,SearchServiceApplication,11,0,0,0,4,0,3,0,3,0

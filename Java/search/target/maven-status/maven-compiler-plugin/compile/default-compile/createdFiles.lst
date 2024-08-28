@@ -1,0 +1,5 @@
+search\SearchMicroserviceService.class
+search\MicroserviceRepository.class
+search\Microservice.class
+search\SearchMicroserviceController.class
+search\SearchServiceApplication.class

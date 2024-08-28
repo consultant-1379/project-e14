@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Microservice.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project-solution-search</a> &gt; <a href="index.source.html" class="el_package">search</a> &gt; <span class="el_source">Microservice.java</span></div><h1>Microservice.java</h1><pre class="source lang-java linenums">package search;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
+import java.util.List;
+
+@Document(collection = &quot;microservices&quot;)
+<span class="fc" id="L10">public class Microservice {</span>
+    @Id
+    private String microserviceID;
+    private String name;
+    private String category;
+    private String leadEngineerName;
+    private String leadEngineerEmail;
+    private String description;
+    private int version;
+    private Date creationDate;
+    private List&lt;String&gt; dependencies;
+    private String specification;
+
+    public String getMicroserviceID() {
+<span class="nc" id="L24">        return microserviceID;</span>
+    }
+
+    public void setMicroserviceID(String microserviceID) {
+<span class="nc" id="L28">        this.microserviceID = microserviceID;</span>
+<span class="nc" id="L29">    }</span>
+
+    public String getName() {
+<span class="fc" id="L32">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="fc" id="L36">        this.name = name;</span>
+<span class="fc" id="L37">    }</span>
+
+    public String getCategory() {
+<span class="fc" id="L40">        return category;</span>
+    }
+
+    public void setCategory(String category) {
+<span class="fc" id="L44">        this.category = category;</span>
+<span class="fc" id="L45">    }</span>
+
+    public String getLeadEngineerName() {
+<span class="nc" id="L48">        return leadEngineerName;</span>
+    }
+
+    public void setLeadEngineerName(String leadEngineerName) {
+<span class="nc" id="L52">        this.leadEngineerName = leadEngineerName;</span>
+<span class="nc" id="L53">    }</span>
+
+    public String getLeadEngineerEmail() {
+<span class="nc" id="L56">        return leadEngineerEmail;</span>
+    }
+
+    public void setLeadEngineerEmail(String leadEngineerEmail) {
+<span class="nc" id="L60">        this.leadEngineerEmail = leadEngineerEmail;</span>
+<span class="nc" id="L61">    }</span>
+
+    public String getDescription() {
+<span class="nc" id="L64">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="fc" id="L68">        this.description = description;</span>
+<span class="fc" id="L69">    }</span>
+
+    public int getVersion() {
+<span class="fc" id="L72">        return version;</span>
+    }
+
+    public void setVersion(int version) {
+<span class="fc" id="L76">        this.version = version;</span>
+<span class="fc" id="L77">    }</span>
+
+    public Date getCreationDate() {
+<span class="nc" id="L80">        return creationDate;</span>
+    }
+
+    public void setCreationDate() {
+<span class="nc" id="L84">        this.creationDate = new Date();</span>
+<span class="nc" id="L85">    }</span>
+
+    public List&lt;String&gt; getDependencies() {
+<span class="nc" id="L88">        return dependencies;</span>
+    }
+
+    public void setDependencies(List&lt;String&gt; dependencies) {
+<span class="nc" id="L92">        this.dependencies = dependencies;</span>
+<span class="nc" id="L93">    }</span>
+
+    public String getSpecification() {
+<span class="fc" id="L96">        return specification;</span>
+    }
+
+    public void setSpecification(String specification) {
+<span class="fc" id="L100">        this.specification = specification;</span>
+<span class="fc" id="L101">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

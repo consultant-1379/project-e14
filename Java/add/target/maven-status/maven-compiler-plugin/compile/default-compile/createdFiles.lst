@@ -1,0 +1,6 @@
+add\Microservice.class
+add\AddService.class
+add\AddServiceApplication.class
+add\MicroserviceRepository.class
+add\MicroserviceDTO.class
+add\AddMicroserviceController.class
